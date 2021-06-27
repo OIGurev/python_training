@@ -38,3 +38,20 @@ class GroupHelper:
     def return_to_groups_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("group page").click()
+
+    def go_to_modify_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("groups").click()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_name("edit").click()
+
+    def modify_group(self):
+        wd = self.app.wd
+        wd.find_element_by_name("group_name").clear()
+        wd.find_element_by_name("group_name").send_keys("new group name")
+        wd.find_element_by_name("group_header").click()
+        wd.find_element_by_name("group_header").clear()
+        wd.find_element_by_name("group_header").send_keys("new header")
+        wd.find_element_by_name("update").click()
+
+

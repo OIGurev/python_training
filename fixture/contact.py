@@ -72,7 +72,6 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
-    #go to modify page
     def go_to_modify_page(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//img[@alt='Details']").click()
