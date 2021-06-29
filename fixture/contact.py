@@ -68,17 +68,23 @@ class ContactHelper:
         #confirm alert
         wd.switch_to_alert().accept()
 
+    def go_to_home_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
     def go_to_modify_page(self):
         wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+        #wd.find_element_by_xpath([@title="Details"]).click()
         wd.find_element_by_xpath("//img[@alt='Details']").click()
         wd.find_element_by_name("modifiy").click()
 
-    def modify_contact(self):
+    def modify_first_contact(self, contact):
         wd = self.app.wd
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("ivan")
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
         wd.find_element_by_name("update").click()

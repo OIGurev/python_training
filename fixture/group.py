@@ -45,7 +45,7 @@ class GroupHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_name("edit").click()
 
-    def modify_group(self):
+    def modify_first_group(self):
         wd = self.app.wd
         wd.find_element_by_name("group_name").clear()
         wd.find_element_by_name("group_name").send_keys("new group name")
