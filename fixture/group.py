@@ -19,6 +19,7 @@ class GroupHelper:
 
     def modify_first_group(self, group):
         wd = self.app.wd
+        self.go_to_modify_page()
         self.fill_group_fields(group)
         wd.find_element_by_name("update").click()
 
