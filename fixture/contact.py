@@ -82,4 +82,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//img[@alt='Details']").click()
         wd.find_element_by_name("modifiy").click()
 
-
+    def count(self):
+        wd = self.app.wd
+        self.go_to_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
