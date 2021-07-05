@@ -13,7 +13,7 @@ class ContactHelper:
         self.fill_contact_fields(contact)
         #submit form
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        self.return_to_home_page()
+        self.go_to_home_page()
 
     def modify_first_contact(self, contact):
         wd = self.app.wd
@@ -67,22 +67,22 @@ class ContactHelper:
         #confirm alert
         wd.switch_to_alert().accept()
 
-    def go_to_home_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
-
-    def return_to_home_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
-
-    def go_to_modify_page(self):
-        wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
-        #wd.find_element_by_xpath([@title="Details"]).click()
-        wd.find_element_by_xpath("//img[@alt='Details']").click()
-        wd.find_element_by_name("modifiy").click()
-
     def count(self):
         wd = self.app.wd
         self.go_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    #navigation
+    def go_to_home_page(self):
+        wd = self.app.wd
+        if wd.current_url.endswith("/addressbook/"):
+            return
+        wd.find_element_by_link_text("home").click()
+
+    def go_to_modify_page(self):
+        wd = self.app.wd
+        if len(wd.find_elements_by_name("update")) > 1:
+            return
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_xpath("//img[@alt='Details']").click()
+        wd.find_element_by_name("modifiy").click()
