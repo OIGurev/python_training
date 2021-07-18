@@ -1,5 +1,7 @@
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.select import Select
+from model.contact import Contact
+
 
 class ContactHelper:
 
@@ -66,6 +68,8 @@ class ContactHelper:
         wd.find_element_by_xpath("//*[@id='content']/form[2]/div[2]/input").click()
         #confirm alert
         wd.switch_to_alert().accept()
+        wd.implicitly_wait(0.1)
+        wd.find_element_by_css_selector("div.msgbox")
 
     def count(self):
         wd = self.app.wd
@@ -75,14 +79,23 @@ class ContactHelper:
     #navigation
     def go_to_home_page(self):
         wd = self.app.wd
-        if wd.current_url.endswith("/addressbook/"):
-            return
-        wd.find_element_by_link_text("home").click()
+        if not wd.current_url.endswith("/addressbook/"):
+            wd.find_element_by_link_text("home").click()
 
     def go_to_modify_page(self):
         wd = self.app.wd
-        if len(wd.find_elements_by_name("update")) > 1:
-            return
-        wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_xpath("//img[@alt='Details']").click()
-        wd.find_element_by_name("modifiy").click()
+        if not len(wd.find_elements_by_name("update")) > 1:
+            wd.find_element_by_name("selected[]").click()
+            wd.find_element_by_xpath("//img[@alt='Details']").click()
+            wd.find_element_by_name("modifiy").click()
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.go_to_home_page()
+        contacts = []
+        for element in wd.find_elements_by_css_selector("[name=entry]"):
+            firstname = element.find_elements_by_tag_name("td")[2].text
+            lastname = element.find_elements_by_tag_name("td")[1].text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(firstname=firstname, lastname=lastname, id=id))
+        return contacts

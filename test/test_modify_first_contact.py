@@ -8,7 +8,10 @@ def test_modify_first_contact_firstname(app):
                                    address="a", home="25", mobile="a",
                                    work="256985", email="a@mail.ru", address2="address2",
                                    phone2="a", notes="notes"))
+    old_contacts = app.contact.get_contact_list()
     app.contact.modify_first_contact(Contact(firstname="Ivan"))
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
 
 def test_modify_first_contact_middlename(app):
     if app.contact.count() == 0:
@@ -17,4 +20,7 @@ def test_modify_first_contact_middlename(app):
                                    address="b", home="25", mobile="b",
                                    work="256985", email="b@mail.ru", address2="address2",
                                    phone2="b", notes="notes"))
+    old_contacts = app.contact.get_contact_list()
     app.contact.modify_first_contact(Contact(middlename="Petrovich"))
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
