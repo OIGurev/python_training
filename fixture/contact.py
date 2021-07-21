@@ -1,4 +1,3 @@
-from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.select import Select
 from model.contact import Contact
 
@@ -16,13 +15,18 @@ class ContactHelper:
         #submit form
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.go_to_home_page()
+        self.contact_cache = None
 
-    def modify_first_contact(self, contact):
+    def modify_first_contact(self):
+        self.modify_contact_by_index(0)
+
+    def modify_contact_by_index(self, index, contact):
         wd = self.app.wd
         self.go_to_home_page()
-        self.go_to_modify_page()
+        self.go_to_modify_page(index)
         self.fill_contact_fields(contact)
         wd.find_element_by_name("update").click()
+        self.contact_cache = None
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -60,16 +64,20 @@ class ContactHelper:
         self.change_field_value("notes", contact.notes)
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.go_to_home_page()
         #select first contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         #submit deletion
         wd.find_element_by_xpath("//*[@id='content']/form[2]/div[2]/input").click()
         #confirm alert
         wd.switch_to_alert().accept()
         wd.implicitly_wait(0.1)
         wd.find_element_by_css_selector("div.msgbox")
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
@@ -82,20 +90,23 @@ class ContactHelper:
         if not wd.current_url.endswith("/addressbook/"):
             wd.find_element_by_link_text("home").click()
 
-    def go_to_modify_page(self):
+    def go_to_modify_page(self, index):
         wd = self.app.wd
         if not len(wd.find_elements_by_name("update")) > 1:
-            wd.find_element_by_name("selected[]").click()
-            wd.find_element_by_xpath("//img[@alt='Details']").click()
+            wd.find_elements_by_name("selected[]")[index].click()
+            wd.find_elements_by_xpath("//img[@alt='Details']")[index].click()
             wd.find_element_by_name("modifiy").click()
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.go_to_home_page()
-        contacts = []
-        for element in wd.find_elements_by_css_selector("[name=entry]"):
-            firstname = element.find_elements_by_tag_name("td")[2].text
-            lastname = element.find_elements_by_tag_name("td")[1].text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(firstname=firstname, lastname=lastname, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.go_to_home_page()
+            self.contact_cache = []
+            for element in wd.find_elements_by_css_selector("[name=entry]"):
+                firstname = element.find_elements_by_tag_name("td")[2].text
+                lastname = element.find_elements_by_tag_name("td")[1].text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
+        return list(self.contact_cache)
