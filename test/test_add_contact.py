@@ -6,11 +6,11 @@ import string
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
+    symbols = string.ascii_letters + string.digits
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 def random_phone(maxlen):
-    symbols = string.digits + string.punctuation + " "*5
+    symbols = string.digits
     return "".join(random.choice(symbols) for i in range(random.randrange(maxlen)))
 
 def random_email(prefix, maxlen1, maxlen2, maxlen3):
@@ -26,7 +26,7 @@ testdata = [Contact(firstname="", middlename="", lastname="", nickname="", title
             address=random_string("address", 10), homephone=random_phone(10), mobile=random_phone(10), work=random_phone(10),
             email=random_email("email", 10, 5, 3), email2=random_email("email2", 10, 5, 3), email3=random_email("email3", 10, 5, 3),
             address2=random_string("address2", 10), phone2=random_phone(10), notes=random_string("notes", 20))
-    for i in range(5)
+    for i in range(2)
 ]
 
 @pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
