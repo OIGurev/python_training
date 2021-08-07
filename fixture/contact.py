@@ -29,6 +29,14 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.go_to_home_page()
+        self.go_to_modify_by_id_page(id)
+        self.fill_contact_fields(contact)
+        wd.find_element_by_name("update").click()
+        self.contact_cache = None
+
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
@@ -82,6 +90,19 @@ class ContactHelper:
         wd.find_element_by_css_selector("div.msgbox")
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.go_to_home_page()
+        #select first contact
+        wd.find_element_by_css_selector("input[id='%s']" % id).click()
+        #submit deletion
+        wd.find_element_by_xpath("//*[@id='content']/form[2]/div[2]/input").click()
+        #confirm alert
+        wd.switch_to_alert().accept()
+        wd.implicitly_wait(0.1)
+        wd.find_element_by_css_selector("div.msgbox")
+        self.contact_cache = None
+
     def count(self):
         wd = self.app.wd
         self.go_to_home_page()
@@ -98,6 +119,10 @@ class ContactHelper:
         self.go_to_home_page()
         wd.find_elements_by_css_selector("img[alt='Edit']")[index].click()
 
+    def go_to_modify_by_id_page(self, id):
+        wd = self.app.wd
+        self.go_to_home_page()
+        wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id).click()
 
     contact_cache = None
 
