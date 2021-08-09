@@ -5,6 +5,7 @@ import os.path
 import importlib
 from fixture.db import DbFixture
 from fixture.application import Application
+from fixture.orm import ORMFixture
 
 fixture = None
 target = None
