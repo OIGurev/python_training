@@ -13,38 +13,30 @@ def check_empty_filling(app, db):
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name="test"))
 
-
-def test_add_contact_to_group(app, db):
-    check_empty_filling(app, db)
-
-    contacts = db.get_contact_list()
-    contact = random.randint(1, len(contacts))
-    random_contact_id = contacts[contact - 1].id
-
-    groups = db.get_group_list()
-    random_group = random.randint(1, len(groups))
-    random_group_id = groups[random_group - 1].id
-
-    contacts_before_add = len(orm.get_contacts_in_group(Group(id='%s' % random_group_id)))
-    app.contact.add_contact_to_group_by_id(random_contact_id, random_group)
-    contacts_after_add = len(orm.get_contacts_in_group(Group(id='%s' % random_group_id)))
-
-    assert contacts_before_add + 1 == contacts_after_add
-
-
 def test_delete_contact_from_group(app, db):
     check_empty_filling(app, db)
-
-    groups = db.get_group_list()
-    random_group = random.randint(1, len(groups))
-    random_group_id = groups[random_group - 1].id
+    contact_to_add = db.get_contacts_not_in_groups()[0]
+    group = db.get_group_list()
+    random_group = random.randint(1, len(group))
+    random_group_id = group[random_group - 1].id
 
     contacts_before_delete = len(orm.get_contacts_in_group(Group(id='%s' % random_group_id)))
 
     if contacts_before_delete == 0:
+        app.contact.add_contact_to_group_by_id(contact_to_add, random_group)
+    else:
         contacts = db.get_contact_list()
         contact = random.choice(contacts)
         app.contact.add_contact_to_group_by_id(contact.id, random_group=random_group)
-        app.contact.delete_contact_from_group_by_id(group_id=random_group_id, db=db)
+        app.contact.delete_contact_from_group_by_id(group_id=random_group_id, orm=orm)
         contacts_after_delete = len(orm.get_contacts_in_group(Group(id='%s' % random_group_id)))
         assert contacts_before_delete - 1 == contacts_after_delete
+
+def test_add_contact_to_group(app, db):
+    check_empty_filling(app, db)
+    contact_to_add = db.get_contacts_not_in_groups()[0]
+    group = db.get_group_list()[0].id
+    app.contact.add_contact_to_group_by_id(contact_to_add, group)
+    new_contacts_not_in_groups = db.get_contacts_not_in_groups()
+    assert contact_to_add not in new_contacts_not_in_groups
+

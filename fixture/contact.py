@@ -2,6 +2,7 @@ import random
 import time
 
 from selenium.webdriver.support.select import Select
+
 from model.contact import Contact
 import re
 
@@ -192,18 +193,18 @@ class ContactHelper:
         phone2 = re.search("P: (.*)", text).group(1)
         return Contact(homephone=homephone, mobile=mobile, work=work, phone2=phone2)
 
-    def add_contact_to_group_by_id(self, random_contact_id, random_group):
+    def add_contact_to_group_by_id(self, contact_id, random_group):
         wd = self.app.wd
         self.go_to_home_page()
-        wd.find_element_by_id("%s" % random_contact_id).click()
+        wd.find_element_by_id("%s" % contact_id).click()
         wd.find_element_by_name("to_group").click()
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[4]/select/option[%s]" % random_group).click()
         wd.find_element_by_name("add").click()
         try:
-            wd.find_element_by_xpath("//*[text() = 'Users added']")
+              wd.find_element_by_xpath("//*[text() = 'Users added']")
         except Exception:
             time.sleep(1)
-        self.contact_cache = None
+
 
     def delete_contact_from_group_by_id(self, group_id, orm):
         wd = self.app.wd
@@ -219,4 +220,4 @@ class ContactHelper:
             try:
                  wd.find_element_by_xpath("//*[text() = 'Users removed.']")
             except Exception:
-                 time.sleep(0.1)
+                 time.sleep(1)
