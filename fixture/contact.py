@@ -1,12 +1,8 @@
-import random
-import time
+import re
 
 from selenium.webdriver.support.select import Select
 
 from model.contact import Contact
-import re
-
-from model.group import Group
 
 
 class ContactHelper:
@@ -193,31 +189,24 @@ class ContactHelper:
         phone2 = re.search("P: (.*)", text).group(1)
         return Contact(homephone=homephone, mobile=mobile, work=work, phone2=phone2)
 
-    def add_contact_to_group_by_id(self, contact_id, random_group):
+    def add_contact_to_group_by_id(self, contact_id, group_id):
         wd = self.app.wd
         self.go_to_home_page()
-        wd.find_element_by_id("%s" % contact_id).click()
+        self.select_contact_by_id(contact_id)
         wd.find_element_by_name("to_group").click()
-        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[4]/select/option[%s]" % random_group).click()
+        Select(wd.find_element_by_name("to_group")).select_by_value(group_id)
         wd.find_element_by_name("add").click()
-        try:
-              wd.find_element_by_xpath("//*[text() = 'Users added']")
-        except Exception:
-            time.sleep(1)
 
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        return wd
 
-    def delete_contact_from_group_by_id(self, group_id, orm):
+    def delete_contact_from_group_by_id(self, contact_id, group_id):
         wd = self.app.wd
         self.go_to_home_page()
         wd.find_element_by_name("group").click()
-        wd.find_element_by_xpath("//option[@value='%s']" % group_id).click()
-        if not wd.find_element_by_xpath("//div[@id='content']/label/strong/span[@id='search_count']").text == 0:
-            contacts = orm.get_contacts_in_group(Group(id='%s' % group_id))
-            random_contact = random.randint(0, len(contacts)-1)
-            contact_id = contacts[random_contact].id
-            wd.find_element_by_id("%s" % contact_id).click()
-            wd.find_element_by_name("remove").click()
-            try:
-                 wd.find_element_by_xpath("//*[text() = 'Users removed.']")
-            except Exception:
-                 time.sleep(1)
+        Select(wd.find_element_by_xpath("//select[@name='group']")).select_by_value(group_id)
+        wd.find_element_by_css_selector("input[value='%s']" % contact_id).click()
+        wd.find_element_by_name("remove").click()
