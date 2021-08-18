@@ -34,6 +34,14 @@ class ContactHelper:
     def modify_contact_by_id(self, id, contact):
         wd = self.app.wd
         self.go_to_home_page()
+        self.go_to_modify_page(id)
+        self.fill_contact_fields(contact)
+        wd.find_element_by_name("update").click()
+        self.contact_cache = None
+
+    def modify_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.go_to_home_page()
         self.go_to_modify_by_id_page(id)
         self.fill_contact_fields(contact)
         wd.find_element_by_name("update").click()
