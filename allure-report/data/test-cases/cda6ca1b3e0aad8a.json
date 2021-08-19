@@ -1,0 +1,189 @@
+{
+  "uid" : "cda6ca1b3e0aad8a",
+  "name" : "test_add_contact[None:firstnameKZ:lastnamekuAByOd5Y:nicknameMkc7:titlezWOF8:companykeX2:addressTnr4Q:602:1089::email@GT3.Y:email2K0Rmh4U@yxci.kN:email3Lq@zm.b:address2o87mumF:7124:notes9W6wkSy6UKnR0d]",
+  "fullName" : "test.test_add_contact.test_add_contact[None:firstnameKZ:lastnamekuAByOd5Y:nicknameMkc7:titlezWOF8:companykeX2:addressTnr4Q:602:1089#email@GT3.Y:email2K0Rmh4U@yxci.kN:email3Lq@zm.b:address2o87mumF:7124:notes9W6wkSy6UKnR0d]",
+  "historyId" : "424c9d16e0a5dd460c9a639d849fc0b7",
+  "time" : {
+    "start" : 1629366204769,
+    "stop" : 1629366207340,
+    "duration" : 2571
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "stop",
+    "time" : {
+      "start" : 1629366195517,
+      "stop" : 1629366195517,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "db",
+    "time" : {
+      "start" : 1629366195517,
+      "stop" : 1629366195527,
+      "duration" : 10
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "app",
+    "time" : {
+      "start" : 1629366204619,
+      "stop" : 1629366204769,
+      "duration" : 150
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "Given a contact list",
+      "time" : {
+        "start" : 1629366204769,
+        "stop" : 1629366204770,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "shouldDisplayMessage" : false,
+      "attachmentsCount" : 0,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "When I add the contact None:firstnameKZ:lastnamekuAByOd5Y:nicknameMkc7:titlezWOF8:companykeX2:addressTnr4Q:602:1089::email@GT3.Y:email2K0Rmh4U@yxci.kN:email3Lq@zm.b:address2o87mumF:7124:notes9W6wkSy6UKnR0d to the list",
+      "time" : {
+        "start" : 1629366204770,
+        "stop" : 1629366207337,
+        "duration" : 2567
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "shouldDisplayMessage" : false,
+      "attachmentsCount" : 0,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "Then the new contact list is equal to the old list with the added contact",
+      "time" : {
+        "start" : 1629366207337,
+        "stop" : 1629366207340,
+        "duration" : 3
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "shouldDisplayMessage" : false,
+      "attachmentsCount" : 0,
+      "stepsCount" : 0,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0,
+    "stepsCount" : 3,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "stop::fin",
+    "time" : {
+      "start" : 1629366238506,
+      "stop" : 1629366239409,
+      "duration" : 903
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "db::fin",
+    "time" : {
+      "start" : 1629366238505,
+      "stop" : 1629366238505,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "test"
+  }, {
+    "name" : "suite",
+    "value" : "test_add_contact"
+  }, {
+    "name" : "subSuite",
+    "value" : "test_add_contact[None:firstnameKZ:lastnamekuAByOd5Y:nicknameMkc7:titlezWOF8:companykeX2:addressTnr4Q:602:1089"
+  }, {
+    "name" : "host",
+    "value" : "BLK-146"
+  }, {
+    "name" : "thread",
+    "value" : "6432-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test.test_add_contact"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "json_contacts",
+    "value" : "None:firstnameKZ:lastnamekuAByOd5Y:nicknameMkc7:titlezWOF8:companykeX2:addressTnr4Q:602:1089::email@GT3.Y:email2K0Rmh4U@yxci.kN:email3Lq@zm.b:address2o87mumF:7124:notes9W6wkSy6UKnR0d"
+  } ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "cda6ca1b3e0aad8a.json",
+  "parameterValues" : [ "None:firstnameKZ:lastnamekuAByOd5Y:nicknameMkc7:titlezWOF8:companykeX2:addressTnr4Q:602:1089::email@GT3.Y:email2K0Rmh4U@yxci.kN:email3Lq@zm.b:address2o87mumF:7124:notes9W6wkSy6UKnR0d" ]
+}
